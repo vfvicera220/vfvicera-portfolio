@@ -45,24 +45,24 @@ const workExpStartYear = 2019;
 const skillData = [
   {
     size: {
-      width: "auto",
-      height: 20,
+      width: 80,
+      height: 80,
     },
     title: "ReactJs & React Native",
     logo: reactJsLogo,
   },
   {
     size: {
-      width: "auto",
-      height: 20,
+      width: 80,
+      height: 80,
     },
     title: "Springboot",
     logo: springbootLogo,
   },
   {
     size: {
-      width: "auto",
-      height: 20,
+      width: 80,
+      height: 80,
     },
     title: "PostgreSQL",
     logo: postgreSQLLogo,
@@ -70,7 +70,7 @@ const skillData = [
   {
     size: {
       width: "auto",
-      height: 20,
+      height: 100,
     },
     title: "Java",
     logo: javaLogo,
@@ -78,7 +78,7 @@ const skillData = [
   {
     size: {
       width: "auto",
-      height: 20,
+      height: 100,
     },
     title: "HTML CSS JS",
     logo: htmlCssJsLogo,
@@ -86,7 +86,7 @@ const skillData = [
   {
     size: {
       width: "auto",
-      height: 20,
+      height: 100,
     },
     title: "Python",
     logo: pythonLogo,
@@ -94,47 +94,47 @@ const skillData = [
   {
     size: {
       width: "auto",
-      height: 20,
+      height: 80,
     },
     title: "Gitlab",
     logo: gitlabLogoDark,
   },
   {
     size: {
-      width: 28,
-      height: 20,
+      width: 100,
+      height: 80,
     },
     title: "Jira",
     logo: jiraLogo,
   },
   {
     size: {
-      width: 28,
-      height: 20,
+      width: 100,
+      height: 80,
     },
     title: "NextJS",
     logo: nextjsLogo,
   },
   {
     size: {
-      width: 28,
-      height: 20,
+      width: 80,
+      height: 80,
     },
     title: "TailwindCSS",
     logo: tailWindLogo,
   },
   {
     size: {
-      width: "auto",
-      height: 20,
+      width: 80,
+      height: 80,
     },
     title: "Git",
     logo: gitLogo,
   },
   {
     size: {
-      width: "auto",
-      height: 20,
+      width: 80,
+      height: 80,
     },
     title: "GitHub",
     logo: gitHubLogoDark,

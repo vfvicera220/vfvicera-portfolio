@@ -15,9 +15,9 @@ interface SkillItemProps {
 const SkillItem: React.FC<SkillItemProps> = ({logo, title, logoSize}) => {
     const { width, height } = logoSize;
     return (
-      <div className=" rounded p-5 hover:bg-blue-50">
+      <div className="rounded p-5 hover:bg-blue-50">
         <div className="flex justify-center">
-          <Image className={`self-center h-${height} w-${width}`} src={logo} alt="" />
+          <Image style={{height: height, width: width}} className="self-center" src={logo} alt="" />
         </div>
         <div className="flex justify-center pt-3">
           <label className="text-center pt-1 text-xl font-bold leading-8 text-gray-600">
