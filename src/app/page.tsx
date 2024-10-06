@@ -337,6 +337,7 @@ export default function Home() {
                 {skillData.map((item) => {
                   return (
                     <SkillItem
+                      key={item.title}
                       title={item.title}
                       logo={item.logo}
                       logoSize={item.size}
@@ -361,6 +362,7 @@ export default function Home() {
                 {workExperienceData.map((item) => {
                   return (
                     <WorkExperienceItem
+                      key={item.title}
                       description={item.description}
                       logo={item.logo}
                       title={item.title}

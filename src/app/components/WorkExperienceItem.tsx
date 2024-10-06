@@ -2,9 +2,6 @@ import React from 'react';
 import Image, { StaticImageData } from "next/image";
 import { PlayIcon } from "@heroicons/react/24/solid";
 
-import styles from './WorkExperienceItem.module.scss';
-
-
 interface WorkExperienceItemProps {
     title: string;
     yearSpan: string;
@@ -32,7 +29,7 @@ const WorkExperienceItem: React.FC<WorkExperienceItemProps> = ({title, bulletPoi
             {
                 bulletPoints?.map((item) => {
                     return (
-                      <div className="flex py-1">
+                      <div className="flex py-1" key={item}>
                         <div>
                           <PlayIcon
                             aria-hidden="true"
