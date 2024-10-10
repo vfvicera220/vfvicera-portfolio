@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react"
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={`${montserrat.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
