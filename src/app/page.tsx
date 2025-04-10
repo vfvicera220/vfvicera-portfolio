@@ -16,6 +16,11 @@ import siteLogo from "./assets/memoji/site_logo.png";
 import memoji1 from "./assets/memoji/memoji1.svg";
 import densoLogo from './assets/dtph.png';
 import twistRes from './assets/twist.png';
+import lexiQuest from './assets/lexiquest.png';
+import supabaseLogo from './assets/supabase-logo-icon.png';
+import powerSyncLogo from './assets/powersync.png';
+import expoLogo from './assets/expo.svg';
+import dockerLogo from './assets/symbol_blue-docker-logo.png';
 import gitLogo from './assets/Git-Icon-1788C.png';
 import reactJsLogo from './assets/logo_dark.svg';
 import springbootLogo from './assets/springboot.png';
@@ -58,6 +63,38 @@ const skillData = [
     },
     title: "Springboot",
     logo: springbootLogo,
+  },
+  {
+    size: {
+      width: 80,
+      height: 80,
+    },
+    title: "Supabase",
+    logo: supabaseLogo,
+  },
+  {
+    size: {
+      width: 110,
+      height: 80,
+    },
+    title: "PowerSync",
+    logo: powerSyncLogo,
+  },
+  {
+    size: {
+      width: 80,
+      height: 80,
+    },
+    title: "Expo",
+    logo: expoLogo,
+  },
+  {
+    size: {
+      width: 100,
+      height: 80,
+    },
+    title: "Docker",
+    logo: dockerLogo,
   },
   {
     size: {
@@ -142,8 +179,19 @@ const skillData = [
 ];
 const workExperienceData = [
   {
+    logo: lexiQuest,
+    title: "Full Stack Developer at LexiQuest",
+    yearSpan: "2024-2025",
+    description: "I worked with Felix in bringing LexiQuest to life. LexiQuest is a mobile application that helps users learn different languages " +
+    "in a straightforward but fun and interactive way. The app features detailed information for every word, phrase building with AI feedback, and access to deep-dives into culture, language background and different learning strategies.",
+    bulletPoints: [
+      "https://www.lexiquest.app",
+      "React Native, Supabase, PowerSync, TypeScript, Expo, EAS, Github Actions, Docker",
+    ],
+  },
+  {
     logo: twistRes,
-    title: "Full-stack Software Engineer at TwistResources",
+    title: "Full Stack Software Engineer at TwistResources",
     yearSpan: "2021-Present",
     description: "As a Full-stack Software Engineer at Twist Resources, I play a pivotal role in our team that caters for a real estate company based " +
     "in Australia. Collaborating with a dynamic team of engineers, I contributed to the development of functionality, stability, and efficiency of multiple web and mobile apps, allowing " +
@@ -169,6 +217,7 @@ export default function Home() {
   const yearsPassed = currentYear - workExpStartYear;
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [viewAllTech, setViewAllTech] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -329,12 +378,12 @@ export default function Home() {
           id="tech-stack-section"
         >
           <div className="mx-auto max-w-3xl">
-            <div>
+            <div className="flex flex-col justify-center">
               <div className="">
                 <SectionHeader title="TECH STACK" />
               </div>
               <div className="grid gap-5 md:grid-cols-3 sm:grid-cols-1 my-14">
-                {skillData.map((item) => {
+                {skillData.slice(0, viewAllTech ? skillData.length : 9).map((item) => {
                   return (
                     <SkillItem
                       key={item.title}
@@ -345,6 +394,8 @@ export default function Home() {
                   );
                 })}
               </div>
+              <label className="text-base font-bold leading-7 text-sky-500 hover:bg-blue-50 p-1 self-center" 
+                onClick={() => setViewAllTech(!viewAllTech)}>{viewAllTech ? 'Show Less' : 'Show More'}</label>
             </div>
           </div>
         </div>
