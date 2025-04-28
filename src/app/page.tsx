@@ -43,6 +43,7 @@ import nextjsLogo from "./assets/nextjs-logo.svg";
 const navigation = [
   { name: "About", href: "#" },
   { name: "Tech Stack", href: "#tech-stack-section" },
+  { name: "Apps", href: "#apps-section" },
   { name: "Experience", href: "#experience-section" },
   { name: "Contact", href: "#contact-section" },
 ];
@@ -455,11 +456,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        {/* Tech Stack */}
-        <div
-          className="relative isolate px-6 mb-36 lg:px-8"
-          id="tech-stack-section"
-        >
+        {/* Apps */}
+        <div className="relative isolate px-6 mb-36 lg:px-8" id="apps-section">
           <div className="mx-auto max-w-3xl">
             <div className="flex flex-col justify-center">
               <div className="">
