@@ -4,8 +4,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ArrowDownCircleIcon, ArrowUpCircleIcon } from "@heroicons/react/24/solid";
-import { SocialIcon } from 'react-social-icons'
+import {
+  ArrowDownCircleIcon,
+  ArrowUpCircleIcon,
+} from "@heroicons/react/24/solid";
+import { SocialIcon } from "react-social-icons";
 
 import Typewriter from "./components/Typewriter";
 import SectionHeader from "./components/SectionHeader";
@@ -14,25 +17,28 @@ import SkillItem from "./components/SkillItem";
 
 import siteLogo from "./assets/memoji/site_logo.png";
 import memoji1 from "./assets/memoji/memoji1.svg";
-import densoLogo from './assets/dtph.png';
-import twistRes from './assets/twist.png';
-import lexiQuest from './assets/lexiquest.png';
-import supabaseLogo from './assets/supabase-logo-icon.png';
-import powerSyncLogo from './assets/powersync.png';
-import expoLogo from './assets/expo.svg';
-import dockerLogo from './assets/symbol_blue-docker-logo.png';
-import gitLogo from './assets/Git-Icon-1788C.png';
-import reactJsLogo from './assets/logo_dark.svg';
-import springbootLogo from './assets/springboot.png';
-import postgreSQLLogo from './assets/Postgresql_elephant.svg';
-import pythonLogo from './assets/Python-logo-notext.svg.png';
-import gitlabLogoDark from './assets/gitlab-logo-100.svg';
-import gitHubLogoDark from './assets/github-mark.png';
-import jiraLogo from './assets/logo-gradient-blue-jira.svg';
-import javaLogo from './assets/Java_programming_language_logo.svg.png';
-import htmlCssJsLogo from './assets/html-logo-png-1.png';
-import tailWindLogo from './assets/tailwindcss-icon.svg';
-import nextjsLogo from './assets/nextjs-logo.svg';
+import densoLogo from "./assets/dtph.png";
+import twistRes from "./assets/twist.png";
+import lexiQuest from "./assets/lexiquest.png";
+import goVAL from "./assets/goVAL.png";
+import valAssist from "./assets/valAssist.png";
+import rpDataMobile from "./assets/rpMobile.png";
+import supabaseLogo from "./assets/supabase-logo-icon.png";
+import powerSyncLogo from "./assets/powersync.png";
+import expoLogo from "./assets/expo.svg";
+import dockerLogo from "./assets/symbol_blue-docker-logo.png";
+import gitLogo from "./assets/Git-Icon-1788C.png";
+import reactJsLogo from "./assets/logo_dark.svg";
+import springbootLogo from "./assets/springboot.png";
+import postgreSQLLogo from "./assets/Postgresql_elephant.svg";
+import pythonLogo from "./assets/Python-logo-notext.svg.png";
+import gitlabLogoDark from "./assets/gitlab-logo-100.svg";
+import gitHubLogoDark from "./assets/github-mark.png";
+import jiraLogo from "./assets/logo-gradient-blue-jira.svg";
+import javaLogo from "./assets/Java_programming_language_logo.svg.png";
+import htmlCssJsLogo from "./assets/html-logo-png-1.png";
+import tailWindLogo from "./assets/tailwindcss-icon.svg";
+import nextjsLogo from "./assets/nextjs-logo.svg";
 
 const navigation = [
   { name: "About", href: "#" },
@@ -44,7 +50,7 @@ const socialLinks = [
   // { href: "https://facebook.com" },
   { href: "https://github.com/vfvicera220" },
   { href: "https://www.linkedin.com/in/kvicera/" },
-  { network: "email", href: "mailto:vfvicera220@gmail.com" }
+  { network: "email", href: "mailto:vfvicera220@gmail.com" },
 ];
 const workExpStartYear = 2019;
 const skillData = [
@@ -177,13 +183,52 @@ const skillData = [
     logo: gitHubLogoDark,
   },
 ];
+const appsData = [
+  {
+    size: {
+      width: 80,
+      height: 80,
+    },
+    title: "RP Data Mobile",
+    logo: rpDataMobile,
+    url: "https://apps.apple.com/au/app/rp-data-mobile/id962231516",
+  },
+  {
+    size: {
+      width: 80,
+      height: 80,
+    },
+    title: "LexiQuest",
+    logo: lexiQuest,
+    url: "https://apps.apple.com/au/app/lexiquest/id6550892623",
+  },
+  {
+    size: {
+      width: 80,
+      height: 80,
+    },
+    title: "ValAssist",
+    logo: valAssist,
+    url: "https://play.google.com/store/apps/details?id=au.com.corelogic.cav&hl=en",
+  },
+  {
+    size: {
+      width: 80,
+      height: 80,
+    },
+    title: "goVAL",
+    logo: goVAL,
+    url: "https://apps.apple.com/au/app/goval/id1251788480",
+  },
+];
 const workExperienceData = [
   {
     logo: lexiQuest,
     title: "Full Stack Developer at LexiQuest",
     yearSpan: "2024-2025",
-    description: "I worked with Felix in bringing LexiQuest to life. LexiQuest is a mobile application that helps users learn different languages " +
-    "in a straightforward but fun and interactive way. The app features detailed information for every word, phrase building with AI feedback, and access to deep-dives into culture, language background and different learning strategies.",
+    description:
+      "I worked with Felix in bringing LexiQuest to life. LexiQuest is a mobile application that helps users learn different languages " +
+      "in a straightforward but fun and interactive way. The app features detailed information for every word, phrase building with AI feedback, and access to deep-dives into culture, language background and different learning strategies.",
     bulletPoints: [
       "https://www.lexiquest.app",
       "React Native, Supabase, PowerSync, TypeScript, Expo, EAS, Github Actions, Docker",
@@ -193,22 +238,20 @@ const workExperienceData = [
     logo: twistRes,
     title: "Full Stack Software Engineer at TwistResources",
     yearSpan: "2021-Present",
-    description: "As a Full-stack Software Engineer at Twist Resources, I play a pivotal role in our team that caters for a real estate company based " +
-    "in Australia. Collaborating with a dynamic team of engineers, I contributed to the development of functionality, stability, and efficiency of multiple web and mobile apps, allowing " +
-    "banks to produce more accurate property valuations.",
-    bulletPoints: [
-      "ReactJS, React Native, Java, Springboot, Python",
-    ],
+    description:
+      "As a Full-stack Software Engineer at Twist Resources, I play a pivotal role in our team that caters for a real estate company based " +
+      "in Australia. Collaborating with a dynamic team of engineers, I contributed to the development of functionality, stability, and efficiency of multiple web and mobile apps, allowing " +
+      "banks to produce more accurate property valuations.",
+    bulletPoints: ["ReactJS, React Native, Java, Springboot, Python"],
   },
   {
     logo: densoLogo,
     title: "Software Engineer at Denso Techno Philippines, Inc.",
     yearSpan: "2019-2021",
-    description: "During my tenure at DTPH as a Software Engineer, I was responsible for developing tools and scripts using C#, .NET, Visual Basic, Jenkins and Python to automate " +
-    "internal business processes. Also worked on embedded systems using C# & C++ which is used on car dashboards. Participated on daily stand up meetings, project kick-offs, and code reviews.",
-    bulletPoints: [
-      "C#, .NET, C++, Python, Visual Basic, Jenkins",
-    ],
+    description:
+      "During my tenure at DTPH as a Software Engineer, I was responsible for developing tools and scripts using C#, .NET, Visual Basic, Jenkins and Python to automate " +
+      "internal business processes. Also worked on embedded systems using C# & C++ which is used on car dashboards. Participated on daily stand up meetings, project kick-offs, and code reviews.",
+    bulletPoints: ["C#, .NET, C++, Python, Visual Basic, Jenkins"],
   },
 ];
 
@@ -226,7 +269,7 @@ export default function Home() {
     } else {
       setIsVisible(false);
     }
-  } 
+  };
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -243,9 +286,13 @@ export default function Home() {
 
   return (
     <div className="bg-white">
-      <ArrowUpCircleIcon color="black" className={`h-10 w-10 fixed bottom-4 right-4 transition duration-300 animate-pulse ${
+      <ArrowUpCircleIcon
+        color="black"
+        className={`h-10 w-10 fixed bottom-4 right-4 transition duration-300 animate-pulse ${
           isVisible ? "block" : "hidden"
-        }`} onClick={scrollToTop}/>
+        }`}
+        onClick={scrollToTop}
+      />
       {/* <button
         className={`fixed bottom-4 right-4 p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition duration-300 ${
           isVisible ? "block" : "hidden"
@@ -383,19 +430,61 @@ export default function Home() {
                 <SectionHeader title="TECH STACK" />
               </div>
               <div className="grid gap-5 md:grid-cols-3 sm:grid-cols-1 my-14">
-                {skillData.slice(0, viewAllTech ? skillData.length : 9).map((item) => {
-                  return (
-                    <SkillItem
-                      key={item.title}
-                      title={item.title}
-                      logo={item.logo}
-                      logoSize={item.size}
-                    />
-                  );
-                })}
+                {skillData
+                  .slice(0, viewAllTech ? skillData.length : 9)
+                  .map((item) => {
+                    return (
+                      <SkillItem
+                        key={item.title}
+                        title={item.title}
+                        logo={item.logo}
+                        logoSize={item.size}
+                      />
+                    );
+                  })}
               </div>
-              <label className="text-base font-bold leading-7 text-sky-500 hover:bg-blue-50 p-1 self-center" 
-                onClick={() => setViewAllTech(!viewAllTech)}>{viewAllTech ? 'Show Less' : 'Show More'}</label>
+              <label
+                className="text-base font-bold leading-7 text-sky-500 hover:bg-blue-50 p-1 self-center"
+                onClick={() => setViewAllTech(!viewAllTech)}
+              >
+                {viewAllTech ? "Show Less" : "Show More"}
+              </label>
+            </div>
+          </div>
+        </div>
+        {/* Tech Stack */}
+        <div
+          className="relative isolate px-6 mb-36 lg:px-8"
+          id="tech-stack-section"
+        >
+          <div className="mx-auto max-w-3xl">
+            <div className="flex flex-col justify-center">
+              <div className="">
+                <SectionHeader title="APPS" />
+              </div>
+              <div className="grid gap-5 md:grid-cols-3 sm:grid-cols-1 my-14">
+                {appsData
+                  .slice(0, viewAllTech ? skillData.length : 9)
+                  .map((item) => {
+                    return (
+                      <SkillItem
+                        key={item.title}
+                        title={item.title}
+                        logo={item.logo}
+                        logoSize={item.size}
+                        onClick={() => {
+                          window.open(item.url, "_blank");
+                        }}
+                      />
+                    );
+                  })}
+              </div>
+              <label
+                className="text-base font-bold leading-7 text-sky-500 hover:bg-blue-50 p-1 self-center"
+                onClick={() => setViewAllTech(!viewAllTech)}
+              >
+                {viewAllTech ? "Show Less" : "Show More"}
+              </label>
             </div>
           </div>
         </div>
