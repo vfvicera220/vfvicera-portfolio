@@ -50,6 +50,9 @@ const socialLinks = [
   // { href: "https://facebook.com" },
   { href: "https://github.com/vfvicera220" },
   { href: "https://www.linkedin.com/in/kvicera/" },
+  {
+    href: "https://www.upwork.com/freelancers/~01752e06ac87a9c281?mp_source=share",
+  },
   { network: "email", href: "mailto:vfvicera220@gmail.com" },
 ];
 const workExpStartYear = 2019;
@@ -479,12 +482,6 @@ export default function Home() {
                     );
                   })}
               </div>
-              <label
-                className="text-base font-bold leading-7 text-sky-500 hover:bg-blue-50 p-1 self-center"
-                onClick={() => setViewAllTech(!viewAllTech)}
-              >
-                {viewAllTech ? "Show Less" : "Show More"}
-              </label>
             </div>
           </div>
         </div>
