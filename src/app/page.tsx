@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import CatMascot from "./components/CatMascot";
+import SkillTree from "./components/SkillTree";
 
 const ACCENT = "#F2A541";
 
@@ -222,6 +223,7 @@ export default function Home() {
             <a href="#log">changelog</a>
             <a href="#builds">builds</a>
             <a href="#stack">stack</a>
+            <a href="#skills">skills</a>
             <a href="#contact">contact</a>
           </div>
           <a href="mailto:vfvicera220@gmail.com" className="font-mono" style={{ ...pill, minHeight: 44, padding: "0 16px", fontSize: 13 }}>
@@ -413,11 +415,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SKILL TREE */}
+      <section id="skills" className="sec-pad" style={{ padding: "96px 56px", borderTop: "1px solid var(--line)" }}>
+        <div style={{ ...container, display: "flex", flexDirection: "column", gap: 56 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: 24 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <span className="font-mono" style={eyebrow}>04 — skill-tree</span>
+              <h2 className="big-h2" style={h2}>Skill map</h2>
+            </div>
+            <p style={{ margin: 0, maxWidth: 380, color: "var(--muted)", fontSize: 16 }}>
+              Levels come from years of real use across my roles. Hover or tap a node to see where it was used.
+            </p>
+          </div>
+          <SkillTree />
+        </div>
+      </section>
+
       {/* CONTACT */}
       <section id="contact" className="sec-pad" style={{ padding: "120px 56px 72px", borderTop: "1px solid var(--line)" }}>
         <div style={{ ...container, display: "flex", flexDirection: "column", gap: 48 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            <span className="font-mono" style={eyebrow}>04 — open an issue</span>
+            <span className="font-mono" style={eyebrow}>05 — open an issue</span>
             <h2 className="big-h2" style={{ ...h2, fontSize: 88, lineHeight: 0.95, letterSpacing: "-0.04em", maxWidth: 900 }}>
               Have something to build?
             </h2>
