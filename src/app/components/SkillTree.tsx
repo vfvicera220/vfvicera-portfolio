@@ -55,7 +55,7 @@ const BRANCHES: Branch[] = [
       id: "java", name: "Java", used: ["twist"],
       kids: [
         { id: "spring", name: "Spring Boot", used: ["twist"] },
-        { id: "pg", name: "PostgreSQL", used: ["lexi"], kids: [{ id: "supabase", name: "Supabase", used: ["lexi"] }] },
+        { id: "pg", name: "PostgreSQL", used: ["twist", "lexi"], kids: [{ id: "supabase", name: "Supabase", used: ["lexi"] }] },
       ],
     },
     { id: "node", name: "Node.js", used: ["bb"] }],
@@ -67,7 +67,7 @@ const BRANCHES: Branch[] = [
       id: "docker", name: "Docker", used: ["lexi"],
       kids: [
         { id: "gha", name: "GitHub Actions", used: ["lexi"] },
-        { id: "jenkins", name: "Jenkins", used: ["denso"] },
+        { id: "jenkins", name: "Jenkins", used: ["denso", "twist"] },
       ],
     },
     { id: "cloudflare", name: "Cloudflare", used: ["bb"] }],

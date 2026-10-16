@@ -49,7 +49,7 @@ const RELEASES: Release[] = [
     title: "Full Stack Software Engineer",
     company: "Twist Resources",
     body: "Core engineer on a team serving an Australian real estate company. Improve the functionality, stability and efficiency of multiple web and mobile apps that help banks produce more accurate property valuations.",
-    stack: ["ReactJS", "React Native", "Java", "Spring Boot", "Python"],
+    stack: ["ReactJS", "React Native", "Java", "Spring Boot", "Python", "PostgreSQL", "Jenkins"],
   },
   {
     version: "v1.0.0 · initial",
