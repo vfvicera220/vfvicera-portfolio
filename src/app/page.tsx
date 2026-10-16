@@ -31,7 +31,7 @@ const RELEASES: Release[] = [
       { label: "App Store", href: "https://apps.apple.com/us/app/brain-battle-sat-act-prep/id6748758338" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.brainbattle" },
     ],
-    stack: ["React Native", "Next.js", "Node.js"],
+    stack: ["React Native", "Next.js", "Node.js", "Cloudflare"],
   },
   {
     version: "v3.0.0",
@@ -122,6 +122,7 @@ const DEPS: [string, string][] = [
   ["powersync", "offline-sync"],
   ["postgresql", "database"],
   ["docker", "infra"],
+  ["cloudflare", "infra"],
 ];
 
 const COMMANDS = ["whoami", "cat about.md", "git log --since=2019", "./hire-victor.sh"];

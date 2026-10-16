@@ -68,7 +68,8 @@ const BRANCHES: Branch[] = [
         { id: "gha", name: "GitHub Actions", used: ["lexi"] },
         { id: "jenkins", name: "Jenkins", used: ["denso"] },
       ],
-    }],
+    },
+    { id: "cloudflare", name: "Cloudflare", used: ["bb"] }],
   },
   {
     id: "systems",
