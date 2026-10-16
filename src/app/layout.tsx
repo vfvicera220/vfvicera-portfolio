@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vvicera.kx-lab.org"),
   title: "Victor Francis Vicera",
   description:
     "Senior full-stack developer with 6+ years shipping web and mobile apps. React, React Native, Spring Boot, Supabase.",

@@ -10,17 +10,16 @@ npm run dev        # http://localhost:3000
 npm run build      # static site in ./out
 ```
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare Workers, static assets)
 
-The site is a static export, so Cloudflare Pages serves `./out` directly.
+Live at **https://vvicera.kx-lab.org**.
 
-Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → pick this repo, then:
+`wrangler.jsonc` serves the static export in `./out` and binds the custom domain.
+In the Cloudflare Workers project (connected to this repo):
 
 | Setting | Value |
 | --- | --- |
-| Framework preset | Next.js (Static HTML Export) |
-| Build command | `npx next build` |
-| Build output directory | `out` |
-| Environment variable | `NODE_VERSION` = `20` |
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
 
-Every push to `main` deploys to production; every other branch gets a preview URL.
+Every push to `main` builds and deploys.
