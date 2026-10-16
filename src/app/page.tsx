@@ -31,7 +31,7 @@ const RELEASES: Release[] = [
       { label: "App Store", href: "https://apps.apple.com/us/app/brain-battle-sat-act-prep/id6748758338" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.brainbattle" },
     ],
-    stack: [],
+    stack: ["React Native", "Next.js", "Node.js"],
   },
   {
     version: "v3.0.0",
@@ -112,6 +112,8 @@ const APPS: App[] = [
 
 const DEPS: [string, string][] = [
   ["react + react-native", "frontend"],
+  ["next", "frontend"],
+  ["node", "backend"],
   ["expo", "mobile"],
   ["html / css / js", "frontend"],
   ["java", "backend"],

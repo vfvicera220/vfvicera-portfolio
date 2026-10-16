@@ -13,71 +13,73 @@ const SRC: Record<string, Source> = {
   twist: { name: "Twist Resources", from: 2021, to: NOW },
   lexi: { name: "LexiQuest", from: 2024, to: 2025 },
   site: { name: "This portfolio", from: 2024, to: NOW },
+  bb: { name: "Brain Battle", from: 2026, to: NOW },
 };
 
 type Skill = { id: string; name: string; used: (keyof typeof SRC)[]; kids?: Skill[] };
-type Branch = { id: string; name: string; root: Skill };
+type Branch = { id: string; name: string; roots: Skill[] };
 
 const BRANCHES: Branch[] = [
   {
     id: "frontend",
     name: "frontend/",
-    root: {
-      id: "web", name: "HTML · CSS · JS", used: ["twist", "site"],
+    roots: [{
+      id: "web", name: "HTML · CSS · JS", used: ["twist", "site", "bb"],
       kids: [
         {
-          id: "react", name: "React", used: ["twist", "site"],
+          id: "react", name: "React", used: ["twist", "site", "bb"],
           kids: [
             { id: "ts", name: "TypeScript", used: ["lexi", "site"] },
-            { id: "next", name: "Next.js", used: ["site"], kids: [{ id: "tw", name: "Tailwind", used: ["site"] }] },
+            { id: "next", name: "Next.js", used: ["site", "bb"], kids: [{ id: "tw", name: "Tailwind", used: ["site"] }] },
           ],
         },
       ],
-    },
+    }],
   },
   {
     id: "mobile",
     name: "mobile/",
-    root: {
-      id: "rn", name: "React Native", used: ["twist", "lexi"],
+    roots: [{
+      id: "rn", name: "React Native", used: ["twist", "lexi", "bb"],
       kids: [
         { id: "expo", name: "Expo", used: ["lexi"], kids: [{ id: "eas", name: "EAS", used: ["lexi"] }] },
         { id: "powersync", name: "PowerSync", used: ["lexi"] },
       ],
-    },
+    }],
   },
   {
     id: "backend",
     name: "backend/",
-    root: {
+    roots: [{
       id: "java", name: "Java", used: ["twist"],
       kids: [
         { id: "spring", name: "Spring Boot", used: ["twist"] },
         { id: "pg", name: "PostgreSQL", used: ["lexi"], kids: [{ id: "supabase", name: "Supabase", used: ["lexi"] }] },
       ],
     },
+    { id: "node", name: "Node.js", used: ["bb"] }],
   },
   {
     id: "devops",
     name: "devops/",
-    root: {
+    roots: [{
       id: "docker", name: "Docker", used: ["lexi"],
       kids: [
         { id: "gha", name: "GitHub Actions", used: ["lexi"] },
         { id: "jenkins", name: "Jenkins", used: ["denso"] },
       ],
-    },
+    }],
   },
   {
     id: "systems",
     name: "systems/",
-    root: {
+    roots: [{
       id: "python", name: "Python", used: ["denso", "twist"],
       kids: [
         { id: "cs", name: "C# · .NET", used: ["denso"], kids: [{ id: "vb", name: "Visual Basic", used: ["denso"] }] },
         { id: "cpp", name: "C++", used: ["denso"] },
       ],
-    },
+    }],
   },
 ];
 
@@ -102,7 +104,7 @@ const since = (s: Skill) => Math.min(...s.used.map((k) => SRC[k].from));
 
 function find(id: string): { skill: Skill; branch: Branch } | null {
   for (const b of BRANCHES) {
-    const stack = [b.root];
+    const stack = [...b.roots];
     while (stack.length) {
       const s = stack.pop()!;
       if (s.id === id) return { skill: s, branch: b };
@@ -161,9 +163,11 @@ export default function SkillTree() {
         {BRANCHES.map((b) => (
           <div key={b.id} className="st-branch">
             <div className="font-mono st-branch-name">{b.name}</div>
-            <ul className="st-ul st-root">
-              <Node s={b.root} sel={sel} onSel={setSel} />
-            </ul>
+            {b.roots.map((r) => (
+              <ul key={r.id} className="st-ul st-root">
+                <Node s={r} sel={sel} onSel={setSel} />
+              </ul>
+            ))}
           </div>
         ))}
       </div>
