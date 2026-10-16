@@ -156,4 +156,8 @@ a:hover {
   .st-panel { position: sticky; bottom: 12px; z-index: 5; padding: 14px 16px; }
   .st-panel-name { font-size: 20px; }
 }
-.st-branch > .st-root + .st-root { margin-top: 18px; }
+.st-roots { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.st-branch-row { grid-column: 1 / -1; }
+.st-branch-row .st-roots { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.st-status { font-size: 10px; letter-spacing: 0.04em; color: var(--muted-2); }
+.st-status.current { color: var(--accent); }

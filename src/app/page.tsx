@@ -110,21 +110,6 @@ const APPS: App[] = [
   },
 ];
 
-const DEPS: [string, string][] = [
-  ["react + react-native", "frontend"],
-  ["next", "frontend"],
-  ["node", "backend"],
-  ["expo", "mobile"],
-  ["html / css / js", "frontend"],
-  ["java", "backend"],
-  ["spring-boot", "backend"],
-  ["supabase", "backend"],
-  ["powersync", "offline-sync"],
-  ["postgresql", "database"],
-  ["docker", "infra"],
-  ["cloudflare", "infra"],
-];
-
 const COMMANDS = ["whoami", "cat about.md", "git log --since=2019", "./hire-victor.sh"];
 
 function useTypewriter(cmds: string[]) {
@@ -225,7 +210,6 @@ export default function Home() {
             <a href="#about">about</a>
             <a href="#log">changelog</a>
             <a href="#builds">builds</a>
-            <a href="#stack">stack</a>
             <a href="#skills">skills</a>
             <a href="#contact">contact</a>
           </div>
@@ -387,43 +371,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* STACK */}
-      <section id="stack" className="sec-pad" style={{ padding: "96px 56px", borderTop: "1px solid var(--line)" }}>
-        <div style={{ ...container, display: "flex", flexWrap: "wrap", gap: 64 }}>
-          <div style={{ flex: "1 1 320px", display: "flex", flexDirection: "column", gap: 16 }}>
-            <span className="font-mono" style={eyebrow}>03 — package.json</span>
-            <h2 className="big-h2" style={h2}>Dependencies</h2>
-            <p style={{ margin: 0, color: "var(--muted)", maxWidth: 360, fontSize: 16 }}>
-              The tools I reach for first. React on the front, Spring Boot and Supabase on the back, Docker holding it together.
-            </p>
-          </div>
-          <div
-            className="font-mono"
-            style={{ flex: "2 1 560px", minWidth: 0, background: "var(--bg-2)", border: "1px solid var(--line)", borderRadius: 16, padding: 32, fontSize: 15, lineHeight: 2, overflowX: "auto" }}
-          >
-            <div style={{ color: "var(--muted-2)" }}>{"{"}</div>
-            <div style={{ paddingLeft: 24 }}>
-              <span style={{ color: "#9BC4A8" }}>&quot;dependencies&quot;</span>: {"{"}
-            </div>
-            {DEPS.map(([name, role]) => (
-              <div key={name} style={{ paddingLeft: 48, whiteSpace: "nowrap" }}>
-                <span style={{ color: "#9BC4A8" }}>&quot;{name}&quot;</span>
-                <span style={{ color: "var(--muted-2)" }}>:</span> <span style={{ color: ACCENT }}>&quot;{role}&quot;</span>
-                <span style={{ color: "var(--muted-2)" }}>,</span>
-              </div>
-            ))}
-            <div style={{ paddingLeft: 24 }}>{"}"}</div>
-            <div style={{ color: "var(--muted-2)" }}>{"}"}</div>
-          </div>
-        </div>
-      </section>
-
       {/* SKILL TREE */}
       <section id="skills" className="sec-pad" style={{ padding: "96px 56px", borderTop: "1px solid var(--line)" }}>
         <div style={{ ...container, display: "flex", flexDirection: "column", gap: 56 }}>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: 24 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <span className="font-mono" style={eyebrow}>04 — skill-tree</span>
+              <span className="font-mono" style={eyebrow}>03 — skill-tree</span>
               <h2 className="big-h2" style={h2}>Skill map</h2>
             </div>
             <p style={{ margin: 0, maxWidth: 380, color: "var(--muted)", fontSize: 16 }}>
@@ -438,7 +391,7 @@ export default function Home() {
       <section id="contact" className="sec-pad" style={{ padding: "120px 56px 72px", borderTop: "1px solid var(--line)" }}>
         <div style={{ ...container, display: "flex", flexDirection: "column", gap: 48 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            <span className="font-mono" style={eyebrow}>05 — open an issue</span>
+            <span className="font-mono" style={eyebrow}>04 — open an issue</span>
             <h2 className="big-h2" style={{ ...h2, fontSize: 88, lineHeight: 0.95, letterSpacing: "-0.04em", maxWidth: 900 }}>
               Have something to build?
             </h2>

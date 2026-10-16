@@ -16,8 +16,9 @@ const SRC: Record<string, Source> = {
   bb: { name: "Brain Battle", from: 2026, to: NOW },
 };
 
-type Skill = { id: string; name: string; used: (keyof typeof SRC)[]; kids?: Skill[] };
-type Branch = { id: string; name: string; roots: Skill[] };
+// `status` marks tools without dated usage (shown as current/past instead of a level)
+type Skill = { id: string; name: string; used: (keyof typeof SRC)[]; status?: "current" | "past"; note?: string; kids?: Skill[] };
+type Branch = { id: string; name: string; roots: Skill[]; row?: boolean };
 
 const BRANCHES: Branch[] = [
   {
@@ -82,6 +83,16 @@ const BRANCHES: Branch[] = [
       ],
     }],
   },
+  {
+    id: "ai",
+    name: "ai/",
+    row: true,
+    roots: [
+      { id: "claude", name: "Claude", used: [], status: "current" },
+      { id: "cursor", name: "Cursor", used: [], status: "past" },
+      { id: "copilot", name: "GitHub Copilot", used: [], status: "past" },
+    ],
+  },
 ];
 
 function years(s: Skill) {
@@ -125,8 +136,12 @@ function Pips({ n }: { n: number }) {
   );
 }
 
+function Status({ s }: { s: Skill }) {
+  return <span className={`st-status ${s.status}`}>{s.status === "current" ? "● current" : "past"}</span>;
+}
+
 function Node({ s, sel, onSel }: { s: Skill; sel: string; onSel: (id: string) => void }) {
-  const lv = level(years(s));
+  const lv = s.status ? (s.status === "current" ? 5 : 2) : level(years(s));
   return (
     <li className="st-li">
       <button
@@ -139,7 +154,7 @@ function Node({ s, sel, onSel }: { s: Skill; sel: string; onSel: (id: string) =>
       >
         <span className="st-gem" aria-hidden="true" />
         <span className="st-name">{s.name}</span>
-        <Pips n={lv} />
+        {s.status ? <Status s={s} /> : <Pips n={lv} />}
       </button>
       {s.kids && (
         <ul className="st-ul">
@@ -162,13 +177,15 @@ export default function SkillTree() {
     <div className="st-wrap">
       <div className="st-branches">
         {BRANCHES.map((b) => (
-          <div key={b.id} className="st-branch">
+          <div key={b.id} className={`st-branch${b.row ? " st-branch-row" : ""}`}>
             <div className="font-mono st-branch-name">{b.name}</div>
-            {b.roots.map((r) => (
-              <ul key={r.id} className="st-ul st-root">
-                <Node s={r} sel={sel} onSel={setSel} />
-              </ul>
-            ))}
+            <div className="st-roots">
+              {b.roots.map((r) => (
+                <ul key={r.id} className="st-ul st-root">
+                  <Node s={r} sel={sel} onSel={setSel} />
+                </ul>
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -178,24 +195,39 @@ export default function SkillTree() {
           <div className="st-panel-head">
             <span className="st-panel-branch">{found.branch.name}</span>
             <span className="st-panel-name">{s.name}</span>
-            <Pips n={level(y)} />
+            {s.status ? <Status s={s} /> : <Pips n={level(y)} />}
           </div>
-          <dl className="st-stats">
-            <div>
-              <dt>since</dt>
-              <dd>{since(s)}</dd>
-            </div>
-            <div>
-              <dt>xp</dt>
-              <dd>
-                {y} yr{y === 1 ? "" : "s"}
-              </dd>
-            </div>
-            <div>
-              <dt>used at</dt>
-              <dd>{s.used.map((k) => SRC[k].name).join(" · ")}</dd>
-            </div>
-          </dl>
+          {s.status ? (
+            <dl className="st-stats">
+              <div>
+                <dt>status</dt>
+                <dd>{s.status === "current" ? "Using it right now" : "Used previously"}</dd>
+              </div>
+              {s.note && (
+                <div>
+                  <dt>notes</dt>
+                  <dd>{s.note}</dd>
+                </div>
+              )}
+            </dl>
+          ) : (
+            <dl className="st-stats">
+              <div>
+                <dt>since</dt>
+                <dd>{since(s)}</dd>
+              </div>
+              <div>
+                <dt>xp</dt>
+                <dd>
+                  {y} yr{y === 1 ? "" : "s"}
+                </dd>
+              </div>
+              <div>
+                <dt>used at</dt>
+                <dd>{s.used.map((k) => SRC[k].name).join(" · ")}</dd>
+              </div>
+            </dl>
+          )}
         </div>
       )}
     </div>
