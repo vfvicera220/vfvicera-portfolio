@@ -3,24 +3,104 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #111315;
+  --bg-2: #16191c;
+  --line: #23272b;
+  --line-2: #3a3f44;
+  --fg: #e8e6e1;
+  --fg-2: #c9c6be;
+  --muted: #9a978f;
+  --muted-2: #8d8a83;
+  --accent: #f2a541;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.6;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+a {
+  color: var(--fg);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* typewriter caret */
+.caret {
+  animation: caretBlink 1s steps(1) infinite;
+}
+@keyframes caretBlink {
+  50% {
+    opacity: 0;
   }
+}
+
+/* drifting background shapes */
+.shape {
+  position: absolute;
+}
+.s1 { animation: drift1 26s ease-in-out infinite alternate; }
+.s2 { animation: drift2 18s ease-in-out infinite alternate; }
+.s3 { animation: drift3 22s linear infinite; }
+.s4 { animation: drift1 32s ease-in-out infinite alternate-reverse; }
+.s5 { animation: drift2 14s ease-in-out infinite alternate; }
+.s6 { animation: drift4 40s ease-in-out infinite alternate; }
+.s7 { animation: pulse 12s ease-in-out infinite; }
+.s8 { animation: drift3 28s linear infinite reverse; }
+@keyframes drift1 { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(60px, -40px) rotate(120deg); } }
+@keyframes drift2 { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(-50px, 50px) rotate(-90deg); } }
+@keyframes drift3 { 0% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(30px, 30px) rotate(180deg); } 100% { transform: translate(0, 0) rotate(360deg); } }
+@keyframes drift4 { 0% { transform: translate(0, 0); } 100% { transform: translate(-80px, -60px); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.15); opacity: 1; } }
+
+/* mascot */
+.mascot .eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mBlink 4s infinite;
+}
+@keyframes mBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.15); }
+}
+.mascot-bubble {
+  transform: translateX(-50%);
+  animation: mPop 0.18s steps(3);
+}
+@keyframes mPop {
+  from { transform: translateX(-50%) scale(0.6); }
+  to { transform: translateX(-50%) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shape, .caret, .mascot * {
+    animation: none !important;
+  }
+}
+
+/* responsive */
+@media (max-width: 760px) {
+  .hero-name { font-size: 56px !important; line-height: 0.95 !important; }
+  .sec-pad { padding-left: 20px !important; padding-right: 20px !important; }
+  .log-row { flex-direction: column !important; gap: 12px !important; }
+  .log-side { width: auto !important; }
+  .navlinks { display: none !important; }
+  .contact-mail { font-size: 28px !important; }
+  .big-h2 { font-size: 44px !important; }
 }

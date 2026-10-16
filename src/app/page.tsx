@@ -1,555 +1,450 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  ArrowDownCircleIcon,
-  ArrowUpCircleIcon,
-} from "@heroicons/react/24/solid";
-import { SocialIcon } from "react-social-icons";
+import { useEffect, useState, type CSSProperties } from "react";
+import CatMascot from "./components/CatMascot";
 
-import Typewriter from "./components/Typewriter";
-import SectionHeader from "./components/SectionHeader";
-import WorkExperienceItem from "./components/WorkExperienceItem";
-import SkillItem from "./components/SkillItem";
+const ACCENT = "#F2A541";
 
-import siteLogo from "./assets/memoji/site_logo.png";
-import memoji1 from "./assets/memoji/memoji1.svg";
-import densoLogo from "./assets/dtph.png";
-import twistRes from "./assets/twist.png";
-import lexiQuest from "./assets/lexiquest.png";
-import goVAL from "./assets/goVAL.png";
-import valAssist from "./assets/valAssist.png";
-import rpDataMobile from "./assets/rpMobile.png";
-import supabaseLogo from "./assets/supabase-logo-icon.png";
-import powerSyncLogo from "./assets/powersync.png";
-import expoLogo from "./assets/expo.svg";
-import dockerLogo from "./assets/symbol_blue-docker-logo.png";
-import gitLogo from "./assets/Git-Icon-1788C.png";
-import reactJsLogo from "./assets/logo_dark.svg";
-import springbootLogo from "./assets/springboot.png";
-import postgreSQLLogo from "./assets/Postgresql_elephant.svg";
-import pythonLogo from "./assets/Python-logo-notext.svg.png";
-import gitlabLogoDark from "./assets/gitlab-logo-100.svg";
-import gitHubLogoDark from "./assets/github-mark.png";
-import jiraLogo from "./assets/logo-gradient-blue-jira.svg";
-import javaLogo from "./assets/Java_programming_language_logo.svg.png";
-import htmlCssJsLogo from "./assets/html-logo-png-1.png";
-import tailWindLogo from "./assets/tailwindcss-icon.svg";
-import nextjsLogo from "./assets/nextjs-logo.svg";
+type Release = {
+  version: string;
+  latest?: boolean;
+  dates: string;
+  title: string;
+  company: string;
+  body: string;
+  links?: { label: string; href: string }[];
+  stack: string[];
+};
 
-const navigation = [
-  { name: "About", href: "#" },
-  { name: "Tech Stack", href: "#tech-stack-section" },
-  { name: "Apps", href: "#apps-section" },
-  { name: "Experience", href: "#experience-section" },
-  { name: "Contact", href: "#contact-section" },
-];
-const socialLinks = [
-  // { href: "https://facebook.com" },
-  { href: "https://github.com/vfvicera220" },
-  { href: "https://www.linkedin.com/in/kvicera/" },
+const RELEASES: Release[] = [
   {
-    href: "https://www.upwork.com/freelancers/~01752e06ac87a9c281?mp_source=share",
-  },
-  { network: "email", href: "mailto:vfvicera220@gmail.com" },
-];
-const workExpStartYear = 2019;
-const skillData = [
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "ReactJs & React Native",
-    logo: reactJsLogo,
+    version: "v4.0.0 · latest",
+    latest: true,
+    dates: "Jan 2026 — present",
+    title: "Senior Full Stack Developer",
+    company: "Brain Battle",
+    body: "Building Brain Battle, a gamified SAT and ACT prep app for iOS and Android. Students battle in real time, climb local and global leaderboards, keep streaks and earn rewards while working through a bank of 100,000+ practice questions.",
+    links: [
+      { label: "brainbattle.app", href: "https://brainbattle.app/" },
+      { label: "App Store", href: "https://apps.apple.com/us/app/brain-battle-sat-act-prep/id6748758338" },
+      { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.brainbattle" },
+    ],
+    stack: [],
   },
   {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "Springboot",
-    logo: springbootLogo,
+    version: "v3.0.0",
+    dates: "2024 — 2025",
+    title: "Full Stack Developer",
+    company: "LexiQuest",
+    body: "Brought LexiQuest to life with Felix — a mobile app for learning languages in a straightforward but fun, interactive way. Detailed info for every word, phrase building with AI feedback, and deep-dives into culture, language background and learning strategies.",
+    links: [{ label: "LexiQuest on Google Play", href: "https://play.google.com/store/apps/details?id=com.felixsebastian.lexiquest" }],
+    stack: ["React Native", "Supabase", "PowerSync", "TypeScript", "Expo", "EAS", "GitHub Actions", "Docker"],
   },
   {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "Supabase",
-    logo: supabaseLogo,
+    version: "v2.0.0 · stable",
+    latest: true,
+    dates: "2021 — present",
+    title: "Full Stack Software Engineer",
+    company: "Twist Resources",
+    body: "Core engineer on a team serving an Australian real estate company. Improve the functionality, stability and efficiency of multiple web and mobile apps that help banks produce more accurate property valuations.",
+    stack: ["ReactJS", "React Native", "Java", "Spring Boot", "Python"],
   },
   {
-    size: {
-      width: 110,
-      height: 80,
-    },
-    title: "PowerSync",
-    logo: powerSyncLogo,
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "Expo",
-    logo: expoLogo,
-  },
-  {
-    size: {
-      width: 100,
-      height: 80,
-    },
-    title: "Docker",
-    logo: dockerLogo,
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "PostgreSQL",
-    logo: postgreSQLLogo,
-  },
-  {
-    size: {
-      width: "auto",
-      height: 100,
-    },
-    title: "Java",
-    logo: javaLogo,
-  },
-  {
-    size: {
-      width: "auto",
-      height: 100,
-    },
-    title: "HTML CSS JS",
-    logo: htmlCssJsLogo,
-  },
-  {
-    size: {
-      width: "auto",
-      height: 100,
-    },
-    title: "Python",
-    logo: pythonLogo,
-  },
-  {
-    size: {
-      width: "auto",
-      height: 80,
-    },
-    title: "Gitlab",
-    logo: gitlabLogoDark,
-  },
-  {
-    size: {
-      width: 100,
-      height: 80,
-    },
-    title: "Jira",
-    logo: jiraLogo,
-  },
-  {
-    size: {
-      width: 100,
-      height: 80,
-    },
-    title: "NextJS",
-    logo: nextjsLogo,
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "TailwindCSS",
-    logo: tailWindLogo,
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "Git",
-    logo: gitLogo,
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "GitHub",
-    logo: gitHubLogoDark,
+    version: "v1.0.0 · initial",
+    dates: "2019 — 2021",
+    title: "Software Engineer",
+    company: "Denso Techno Philippines",
+    body: "Built tools and scripts to automate internal business processes, and worked on embedded systems for car dashboards in C# and C++. Daily stand-ups, project kick-offs and code reviews.",
+    stack: ["C#", ".NET", "C++", "Python", "Visual Basic", "Jenkins"],
   },
 ];
-const appsData = [
+
+type App = { name: string; build: string; blurb: string; icon: string; links: { store: string; href: string }[] };
+
+const APPS: App[] = [
   {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "RP Data Mobile",
-    logo: rpDataMobile,
-    url: "https://apps.apple.com/au/app/rp-data-mobile/id962231516",
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "LexiQuest",
-    logo: lexiQuest,
-    url: "https://apps.apple.com/au/app/lexiquest/id6550892623",
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "ValAssist",
-    logo: valAssist,
-    url: "https://play.google.com/store/apps/details?id=au.com.corelogic.cav&hl=en",
-  },
-  {
-    size: {
-      width: 80,
-      height: 80,
-    },
-    title: "goVAL",
-    logo: goVAL,
-    url: "https://apps.apple.com/au/app/goval/id1251788480",
-  },
-];
-const workExperienceData = [
-  {
-    logo: lexiQuest,
-    title: "Full Stack Developer at LexiQuest",
-    yearSpan: "2024-2025",
-    description:
-      "I worked with Felix in bringing LexiQuest to life. LexiQuest is a mobile application that helps users learn different languages " +
-      "in a straightforward but fun and interactive way. The app features detailed information for every word, phrase building with AI feedback, and access to deep-dives into culture, language background and different learning strategies.",
-    bulletPoints: [
-      "https://www.lexiquest.app",
-      "React Native, Supabase, PowerSync, TypeScript, Expo, EAS, Github Actions, Docker",
+    name: "Brain Battle",
+    build: "iOS · Android",
+    blurb: "Gamified SAT and ACT prep with real-time battles",
+    icon: "/apps/brainbattle.webp",
+    links: [
+      { store: "App Store", href: "https://apps.apple.com/us/app/brain-battle-sat-act-prep/id6748758338" },
+      { store: "Google Play", href: "https://play.google.com/store/apps/details?id=com.brainbattle" },
     ],
   },
   {
-    logo: twistRes,
-    title: "Full Stack Software Engineer at TwistResources",
-    yearSpan: "2021-Present",
-    description:
-      "As a Full-stack Software Engineer at Twist Resources, I play a pivotal role in our team that caters for a real estate company based " +
-      "in Australia. Collaborating with a dynamic team of engineers, I contributed to the development of functionality, stability, and efficiency of multiple web and mobile apps, allowing " +
-      "banks to produce more accurate property valuations.",
-    bulletPoints: ["ReactJS, React Native, Java, Springboot, Python"],
+    name: "LexiQuest",
+    build: "Android",
+    blurb: "Language learning with AI feedback",
+    icon: "/apps/lexiquest.png",
+    links: [{ store: "Google Play", href: "https://play.google.com/store/apps/details?id=com.felixsebastian.lexiquest" }],
   },
   {
-    logo: densoLogo,
-    title: "Software Engineer at Denso Techno Philippines, Inc.",
-    yearSpan: "2019-2021",
-    description:
-      "During my tenure at DTPH as a Software Engineer, I was responsible for developing tools and scripts using C#, .NET, Visual Basic, Jenkins and Python to automate " +
-      "internal business processes. Also worked on embedded systems using C# & C++ which is used on car dashboards. Participated on daily stand up meetings, project kick-offs, and code reviews.",
-    bulletPoints: ["C#, .NET, C++, Python, Visual Basic, Jenkins"],
+    name: "RP Data Mobile",
+    build: "iOS · Android",
+    blurb: "Property data for real estate professionals",
+    icon: "/apps/rpdata.jpg",
+    links: [
+      { store: "App Store", href: "https://apps.apple.com/app/id962231516" },
+      { store: "Google Play", href: "https://play.google.com/store/apps/details?id=au.com.corelogic.rpdatapro" },
+    ],
+  },
+  {
+    name: "ValAssist",
+    build: "iOS · Android",
+    blurb: "Helps residents assist valuers with property valuations",
+    icon: "/apps/valassist.webp",
+    links: [
+      { store: "App Store", href: "https://apps.apple.com/au/app/cotality-valuation-assist/id1579802585" },
+      { store: "Google Play", href: "https://play.google.com/store/apps/details?id=au.com.corelogic.cav" },
+    ],
+  },
+  {
+    name: "goVAL",
+    build: "iOS",
+    blurb: "Field app for completing valuation reports",
+    icon: "/apps/goval.webp",
+    links: [{ store: "App Store", href: "https://apps.apple.com/au/app/goval/id1251788480" }],
   },
 ];
 
-export default function Home() {
-  const currentYear = new Date().getFullYear();
-  const yearsPassed = currentYear - workExpStartYear;
+const DEPS: [string, string][] = [
+  ["react + react-native", "frontend"],
+  ["expo", "mobile"],
+  ["html / css / js", "frontend"],
+  ["java", "backend"],
+  ["spring-boot", "backend"],
+  ["supabase", "backend"],
+  ["powersync", "offline-sync"],
+  ["postgresql", "database"],
+  ["docker", "infra"],
+];
 
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [viewAllTech, setViewAllTech] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+const COMMANDS = ["whoami", "cat about.md", "git log --since=2019", "./hire-victor.sh"];
 
-  const toggleVisibility = () => {
-    if (window.scrollY > 100) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
+function useTypewriter(cmds: string[]) {
+  const [typed, setTyped] = useState("");
   useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility);
+    let ci = 0;
+    let n = 0;
+    let deleting = false;
+    let t: number;
+    const type = () => {
+      const cmd = cmds[ci];
+      let delay: number;
+      if (!deleting) {
+        n++;
+        delay = 70 + Math.random() * 70;
+        if (n >= cmd.length) {
+          n = cmd.length;
+          deleting = true;
+          delay = 2400;
+        }
+      } else {
+        n--;
+        delay = 35;
+        if (n <= 0) {
+          n = 0;
+          deleting = false;
+          ci = (ci + 1) % cmds.length;
+          delay = 450;
+        }
+      }
+      setTyped(cmd.slice(0, n));
+      t = window.setTimeout(type, delay);
     };
-  }, []);
+    t = window.setTimeout(type, 600);
+    return () => window.clearTimeout(t);
+  }, [cmds]);
+  return typed;
+}
+
+const chip: CSSProperties = { padding: "5px 10px", border: "1px solid #2E3237", borderRadius: 6 };
+const pill: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  minHeight: 48,
+  padding: "0 20px",
+  border: "1px solid var(--line-2)",
+  borderRadius: 999,
+};
+const container: CSSProperties = { maxWidth: 1240, margin: "0 auto" };
+const h2: CSSProperties = { margin: 0, fontSize: 64, lineHeight: 1, fontWeight: 800, letterSpacing: "-0.03em" };
+const eyebrow: CSSProperties = { fontSize: 13, color: ACCENT };
+
+function Shapes() {
+  return (
+    <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: -1, pointerEvents: "none", overflow: "hidden" }}>
+      <div className="shape s2" style={{ left: "92%", top: "34%", width: 36, height: 36, border: "2px solid #2E3237" }} />
+      <div className="shape s1" style={{ left: "3%", top: "46%", width: 90, height: 90, border: `2px solid ${ACCENT}`, borderRadius: "50%", opacity: 0.25 }} />
+      <div className="shape s6" style={{ left: "64%", top: "54%", width: 120, height: 120, backgroundImage: "radial-gradient(#2E3237 1.5px, transparent 1.5px)", backgroundSize: "20px 20px" }} />
+      <div className="shape s5" style={{ left: "22%", top: "60%", width: 12, height: 12, background: ACCENT, opacity: 0.45 }} />
+      <div className="shape s3" style={{ left: "90%", top: "90%", width: 40, height: 40 }}>
+        <svg width="40" height="40" viewBox="0 0 40 40" style={{ display: "block" }}><path d="M20 4v32M4 20h32" stroke="#2E3237" strokeWidth="3" /></svg>
+      </div>
+      <div className="shape s7" style={{ left: "-6%", top: "92%", width: 320, height: 320, border: "1px solid #22262A", borderRadius: "50%" }} />
+      <div className="shape s1" style={{ left: "6%", top: "6%", width: 140, height: 140, border: "2px solid #2A2E33", borderRadius: "50%" }} />
+      <div className="shape s2" style={{ left: "84%", top: "5%", width: 64, height: 64, border: `2px solid ${ACCENT}`, opacity: 0.35 }} />
+      <div className="shape s3" style={{ left: "72%", top: "22%", width: 40, height: 40 }}>
+        <svg width="40" height="40" viewBox="0 0 40 40" style={{ display: "block" }}><path d="M20 4v32M4 20h32" stroke="#3A3F44" strokeWidth="3" /></svg>
+      </div>
+      <div className="shape s4" style={{ left: "14%", top: "28%", width: 70, height: 62, opacity: 0.4 }}>
+        <svg width="70" height="62" viewBox="0 0 70 62" style={{ display: "block" }}><path d="M35 4L66 58H4Z" fill="none" stroke={ACCENT} strokeWidth="2" /></svg>
+      </div>
+      <div className="shape s5" style={{ left: "46%", top: "12%", width: 14, height: 14, background: ACCENT, opacity: 0.5 }} />
+      <div className="shape s6" style={{ left: "86%", top: "70%", width: 140, height: 140, backgroundImage: "radial-gradient(#33383D 1.5px, transparent 1.5px)", backgroundSize: "20px 20px" }} />
+      <div className="shape s7" style={{ left: "58%", top: "16%", width: 280, height: 280, border: "1px solid #22262A", borderRadius: "50%" }} />
+      <div className="shape s8" style={{ left: "30%", top: "80%", width: 10, height: 10, background: "#3A3F44" }} />
+      <div className="shape s3" style={{ left: "38%", top: "4%", width: 24, height: 24, border: "2px solid #2E3237", transform: "rotate(45deg)" }} />
+    </div>
+  );
+}
+
+export default function Home() {
+  const typed = useTypewriter(COMMANDS);
 
   return (
-    <div className="bg-white">
-      <ArrowUpCircleIcon
-        color="black"
-        className={`h-10 w-10 fixed bottom-4 right-4 transition duration-300 animate-pulse ${
-          isVisible ? "block" : "hidden"
-        }`}
-        onClick={scrollToTop}
-      />
-      {/* <button
-        className={`fixed bottom-4 right-4 p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition duration-300 ${
-          isVisible ? "block" : "hidden"
-        }`}
-        onClick={scrollToTop}
+    <div style={{ minHeight: "100vh", position: "relative", isolation: "isolate" }}>
+      <Shapes />
+
+      {/* NAV */}
+      <header
+        className="sec-pad"
+        style={{ position: "sticky", top: 0, zIndex: 10, background: "rgba(17,19,21,0.88)", backdropFilter: "blur(10px)", borderBottom: "1px solid var(--line)", padding: "0 56px" }}
       >
-        ↑
-      </button> */}
-      <header className="absolute inset-x-0 top-0 z-50">
-        <nav
-          aria-label="Global"
-          className="flex items-center justify-between p-6 lg:px-8"
-        >
-          <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
-              <Image
-                className="hidden md:inline-block h-9 w-auto"
-                src={siteLogo}
-                alt=""
-              />
-            </a>
+        <nav aria-label="Primary" style={{ ...container, height: 68, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+          <a href="#top" className="font-mono" style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.02em" }}>
+            vfv<span style={{ color: ACCENT }}>/</span>portfolio
+          </a>
+          <div className="navlinks font-mono" style={{ display: "flex", gap: 32, fontSize: 13 }}>
+            <a href="#about">about</a>
+            <a href="#log">changelog</a>
+            <a href="#builds">builds</a>
+            <a href="#stack">stack</a>
+            <a href="#contact">contact</a>
           </div>
-          <div className="flex lg:hidden">
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(true)}
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="h-6 w-6" />
-            </button>
-          </div>
-          <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            {/* <Image className="h-8 w-auto" src={githubIconDark} alt={""} /> */}
-          </div>
+          <a href="mailto:vfvicera220@gmail.com" className="font-mono" style={{ ...pill, minHeight: 44, padding: "0 16px", fontSize: 13 }}>
+            hire&nbsp;me&nbsp;→
+          </a>
         </nav>
-        <Dialog
-          open={mobileMenuOpen}
-          onClose={setMobileMenuOpen}
-          className="lg:hidden"
-        >
-          <div className="fixed inset-0 z-50" />
-          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <Image className="h-9 w-auto" src={siteLogo} alt="" />
-              </a>
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon aria-hidden="true" className="h-6 w-6" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </DialogPanel>
-        </Dialog>
       </header>
 
-      <div className="pb-20">
-        <div className="relative isolate px-6 pt-14 lg:px-8">
+      {/* HERO */}
+      <section id="top" className="sec-pad" style={{ padding: "120px 56px 96px" }}>
+        <div id="about" style={{ ...container, display: "flex", flexDirection: "column", gap: 40 }}>
+          <div className="font-mono" style={{ fontSize: 13, color: "var(--muted)", display: "flex", gap: 12, alignItems: "center" }}>
+            <span style={{ color: ACCENT }}>$</span>
+            <span style={{ whiteSpace: "pre" }}>{typed}</span>
+            <span className="caret" style={{ width: 9, height: 18, marginLeft: -8, background: ACCENT, display: "inline-block" }} />
+          </div>
+          <h1 className="hero-name" style={{ margin: 0, fontSize: 132, lineHeight: 0.9, fontWeight: 800, letterSpacing: "-0.045em" }}>
+            Victor Francis
+            <br />
+            Vicera<span style={{ color: ACCENT }}>.</span>
+          </h1>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-end", justifyContent: "space-between" }}>
+            <p style={{ margin: 0, maxWidth: 620, fontSize: 22, lineHeight: 1.5, color: "var(--fg-2)" }}>
+              Full-stack software engineer with <strong style={{ color: "var(--fg)", fontWeight: 600 }}>6+ years</strong> of professional experience — specialized in
+              frontend, built on a solid backend foundation. I ship web and mobile apps end to end.
+            </p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <a href="#log" style={{ ...pill, minHeight: 52, padding: "0 24px", border: "none", background: ACCENT, color: "#111315", fontWeight: 600, fontSize: 16 }}>
+                Read the changelog
+              </a>
+              <a href="https://github.com/vfvicera220" style={{ ...pill, minHeight: 52, padding: "0 24px", fontSize: 16 }}>
+                GitHub ↗
+              </a>
+            </div>
+          </div>
           <div
-            aria-hidden="true"
-            className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            className="font-mono"
+            style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", fontSize: 13 }}
           >
-            <div
-              style={{
-                clipPath:
-                  "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-              }}
-              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-            />
+            {[
+              ["experience", "2019 → now"],
+              ["focus", "Frontend · Mobile"],
+              ["current", "Brain Battle · Twist"],
+              ["latest build", "Brain Battle"],
+            ].map(([k, val]) => (
+              <div key={k} style={{ padding: "20px 0", display: "flex", flexDirection: "column", gap: 4 }}>
+                <span style={{ color: "var(--muted-2)" }}>{k}</span>
+                <span style={{ fontSize: 15 }}>{val}</span>
+              </div>
+            ))}
           </div>
-          <div className="mx-auto max-w-3xl py-32 sm:py-28">
-            <div className="flex mb-24 justify-center">
-              <Image className="h-64 w-auto " src={memoji1} alt={""} />
-            </div>
+        </div>
+      </section>
 
-            <div className="text-center">
-              <Typewriter text="Hi, I'm Victor Francis" speed={60} />
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-                I am a seasoned full-stack software engineer with over{" "}
-                {yearsPassed} years of professional experience, specializing in
-                frontend development with solid backend foundation.
-                <br />
-              </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a href="#tech-stack-section" className="-m-1.5 p-1.5">
-                  <ArrowDownCircleIcon
-                    aria-hidden="true"
-                    color="black"
-                    className="h-7 w-7 animate-bounce"
+      {/* CHANGELOG */}
+      <section id="log" className="sec-pad" style={{ padding: "96px 56px", borderTop: "1px solid var(--line)" }}>
+        <div style={{ ...container, display: "flex", flexDirection: "column", gap: 56 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: 24 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <span className="font-mono" style={eyebrow}>01 — CHANGELOG.md</span>
+              <h2 className="big-h2" style={h2}>Release history</h2>
+            </div>
+            <p style={{ margin: 0, maxWidth: 380, color: "var(--muted)", fontSize: 16 }}>Every role, versioned. Newest first.</p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", borderBottom: "1px solid var(--line)" }}>
+            {RELEASES.map((r) => (
+              <article key={r.version} className="log-row" style={{ display: "flex", gap: 48, padding: "40px 0", borderTop: "1px solid var(--line)" }}>
+                <div className="log-side" style={{ width: 240, flexShrink: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                  <span
+                    className="font-mono"
+                    style={{
+                      alignSelf: "flex-start",
+                      fontSize: 13,
+                      padding: "4px 10px",
+                      borderRadius: 6,
+                      background: r.latest ? "rgba(242,165,65,0.14)" : "#1C1F22",
+                      color: r.latest ? ACCENT : "#B9B6AE",
+                    }}
+                  >
+                    {r.version}
+                  </span>
+                  <span className="font-mono" style={{ fontSize: 14, color: "var(--muted)" }}>{r.dates}</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+                  <h3 style={{ margin: 0, fontSize: 30, lineHeight: 1.2, fontWeight: 600, letterSpacing: "-0.01em" }}>
+                    {r.title} <span style={{ color: "var(--muted-2)", fontWeight: 400 }}>@ {r.company}</span>
+                  </h3>
+                  <p style={{ margin: 0, color: "var(--fg-2)", maxWidth: 760 }}>{r.body}</p>
+                  {r.links && (
+                    <div className="font-mono" style={{ display: "flex", flexWrap: "wrap", columnGap: 20, fontSize: 14 }}>
+                      {r.links.map((l) => (
+                        <a key={l.href} href={l.href} style={{ color: ACCENT, padding: "4px 0" }}>
+                          {l.label} ↗
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  {r.stack.length > 0 && (
+                    <div className="font-mono" style={{ display: "flex", flexWrap: "wrap", gap: 8, fontSize: 12, color: "#B9B6AE" }}>
+                      {r.stack.map((s) => (
+                        <span key={s} style={chip}>{s}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BUILDS */}
+      <section id="builds" className="sec-pad" style={{ padding: "96px 56px", background: "rgba(22,25,28,0.72)", borderTop: "1px solid var(--line)" }}>
+        <div style={{ ...container, display: "flex", flexDirection: "column", gap: 56 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <span className="font-mono" style={eyebrow}>02 — /builds</span>
+            <h2 className="big-h2" style={h2}>Shipped apps</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
+            {APPS.map((a) => (
+              <article key={a.name} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div
+                  style={{
+                    aspectRatio: "1 / 1",
+                    borderRadius: 20,
+                    background: "#1E2226",
+                    border: "1px solid #2A2E33",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    src={a.icon}
+                    alt={`${a.name} app icon`}
+                    width={160}
+                    height={160}
+                    style={{ width: "46%", height: "auto", borderRadius: "22%", boxShadow: "0 12px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06)" }}
                   />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Tech Stack */}
-        <div
-          className="relative isolate px-6 mb-36 lg:px-8"
-          id="tech-stack-section"
-        >
-          <div className="mx-auto max-w-3xl">
-            <div className="flex flex-col justify-center">
-              <div className="">
-                <SectionHeader title="TECH STACK" />
-              </div>
-              <div className="grid gap-5 md:grid-cols-3 sm:grid-cols-1 my-14">
-                {skillData
-                  .slice(0, viewAllTech ? skillData.length : 9)
-                  .map((item) => {
-                    return (
-                      <SkillItem
-                        key={item.title}
-                        title={item.title}
-                        logo={item.logo}
-                        logoSize={item.size}
-                      />
-                    );
-                  })}
-              </div>
-              <label
-                className="text-base font-bold leading-7 text-sky-500 hover:bg-blue-50 p-1 self-center"
-                onClick={() => setViewAllTech(!viewAllTech)}
-              >
-                {viewAllTech ? "Show Less" : "Show More"}
-              </label>
-            </div>
-          </div>
-        </div>
-        {/* Apps */}
-        <div className="relative isolate px-6 mb-36 lg:px-8" id="apps-section">
-          <div className="mx-auto max-w-3xl">
-            <div className="flex flex-col justify-center">
-              <div className="">
-                <SectionHeader title="APPS" />
-              </div>
-              <div className="grid gap-5 md:grid-cols-3 sm:grid-cols-1 my-14">
-                {appsData
-                  .slice(0, viewAllTech ? skillData.length : 9)
-                  .map((item) => {
-                    return (
-                      <SkillItem
-                        key={item.title}
-                        title={item.title}
-                        logo={item.logo}
-                        logoSize={item.size}
-                        onClick={() => {
-                          window.open(item.url, "_blank");
-                        }}
-                      />
-                    );
-                  })}
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Experience */}
-        <div
-          className="relative isolate px-6 mb-36 lg:px-8"
-          id="experience-section"
-        >
-          <div className="mx-auto max-w-3xl">
-            <div>
-              <div>
-                <SectionHeader title="EXPERIENCE" />
-              </div>
-              <div className="flex-col">
-                {workExperienceData.map((item) => {
-                  return (
-                    <WorkExperienceItem
-                      key={item.title}
-                      description={item.description}
-                      logo={item.logo}
-                      title={item.title}
-                      yearSpan={item.yearSpan}
-                      bulletPoints={item.bulletPoints}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-            {/* <SectionHeader title="SAMPLE WITH CUSTOM COLORS" color={{ from: '#EAB8E4', via: '#D09DD2', to: '#B77FB5' }} /> */}
-          </div>
-        </div>
-        {/* Contact */}
-        <div className="relative isolate px-6 lg:px-8" id="contact-section">
-          <div className="mx-auto max-w-3xl">
-            <div>
-              <div>
-                <SectionHeader title="CONTACT" />
-              </div>
-              <div className="flex-col">
-                <div className="pb-12 md:pb-3 sm:mb-3 sm:flex sm:justify-center pt-5">
-                  <div className="flex rounded-full justify-center px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                    {socialLinks.map((link) => {
-                      return (
-                        <SocialIcon
-                          key={link.href}
-                          network={link.network}
-                          style={{
-                            height: 36,
-                            width: 36,
-                            marginLeft: 3,
-                            marginRight: 3,
-                          }}
-                          url={link.href}
-                        />
-                      );
-                    })}
+                  <span className="font-mono" style={{ position: "absolute", top: 14, right: 14, fontSize: 11, color: "var(--muted-2)" }}>{a.build}</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  <h3 style={{ margin: 0, fontSize: 22, fontWeight: 600 }}>{a.name}</h3>
+                  <span style={{ fontSize: 15, color: "var(--muted)" }}>{a.blurb}</span>
+                  <div className="font-mono" style={{ display: "flex", flexWrap: "wrap", columnGap: 16 }}>
+                    {a.links.map((l) => (
+                      <a key={l.href} href={l.href} style={{ fontSize: 13, color: ACCENT, padding: "6px 0" }}>
+                        {l.store} ↗
+                      </a>
+                    ))}
                   </div>
                 </div>
-                <div className="flex justify-center">
-                  <label className="text-sm text-center leading-8 text-gray-600">
-                    Thanks for scrolling!
-                    <br />
-                    This site was made while learning NextJs & TailwindCSS.
-                  </label>
-                </div>
-              </div>
-            </div>
+              </article>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* STACK */}
+      <section id="stack" className="sec-pad" style={{ padding: "96px 56px", borderTop: "1px solid var(--line)" }}>
+        <div style={{ ...container, display: "flex", flexWrap: "wrap", gap: 64 }}>
+          <div style={{ flex: "1 1 320px", display: "flex", flexDirection: "column", gap: 16 }}>
+            <span className="font-mono" style={eyebrow}>03 — package.json</span>
+            <h2 className="big-h2" style={h2}>Dependencies</h2>
+            <p style={{ margin: 0, color: "var(--muted)", maxWidth: 360, fontSize: 16 }}>
+              The tools I reach for first. React on the front, Spring Boot and Supabase on the back, Docker holding it together.
+            </p>
+          </div>
+          <div
+            className="font-mono"
+            style={{ flex: "2 1 560px", minWidth: 0, background: "var(--bg-2)", border: "1px solid var(--line)", borderRadius: 16, padding: 32, fontSize: 15, lineHeight: 2, overflowX: "auto" }}
+          >
+            <div style={{ color: "var(--muted-2)" }}>{"{"}</div>
+            <div style={{ paddingLeft: 24 }}>
+              <span style={{ color: "#9BC4A8" }}>&quot;dependencies&quot;</span>: {"{"}
+            </div>
+            {DEPS.map(([name, role]) => (
+              <div key={name} style={{ paddingLeft: 48, whiteSpace: "nowrap" }}>
+                <span style={{ color: "#9BC4A8" }}>&quot;{name}&quot;</span>
+                <span style={{ color: "var(--muted-2)" }}>:</span> <span style={{ color: ACCENT }}>&quot;{role}&quot;</span>
+                <span style={{ color: "var(--muted-2)" }}>,</span>
+              </div>
+            ))}
+            <div style={{ paddingLeft: 24 }}>{"}"}</div>
+            <div style={{ color: "var(--muted-2)" }}>{"}"}</div>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="sec-pad" style={{ padding: "120px 56px 72px", borderTop: "1px solid var(--line)" }}>
+        <div style={{ ...container, display: "flex", flexDirection: "column", gap: 48 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <span className="font-mono" style={eyebrow}>04 — open an issue</span>
+            <h2 className="big-h2" style={{ ...h2, fontSize: 88, lineHeight: 0.95, letterSpacing: "-0.04em", maxWidth: 900 }}>
+              Have something to build?
+            </h2>
+          </div>
+          <a
+            href="mailto:vfvicera220@gmail.com"
+            className="contact-mail"
+            style={{ fontSize: 44, fontWeight: 600, letterSpacing: "-0.02em", color: ACCENT, alignSelf: "flex-start", borderBottom: `2px solid ${ACCENT}`, paddingBottom: 4 }}
+          >
+            vfvicera220@gmail.com
+          </a>
+          <div className="font-mono" style={{ display: "flex", flexWrap: "wrap", gap: 12, fontSize: 14 }}>
+            <a href="https://github.com/vfvicera220" style={pill}>GitHub ↗</a>
+            <a href="https://www.linkedin.com/in/kvicera/" style={pill}>LinkedIn ↗</a>
+            <a href="https://www.upwork.com/freelancers/~01752e06ac87a9c281" style={pill}>Upwork ↗</a>
+          </div>
+          <footer
+            className="font-mono"
+            style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 16, paddingTop: 32, marginTop: 48, borderTop: "1px solid var(--line)", fontSize: 12, color: "var(--muted-2)" }}
+          >
+            <span>© {new Date().getFullYear()} Victor Francis Vicera</span>
+            <span>Thanks for scrolling. EOF</span>
+          </footer>
+        </div>
+      </section>
+
+      <CatMascot accent={ACCENT} />
     </div>
   );
 }
