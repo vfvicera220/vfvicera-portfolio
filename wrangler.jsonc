@@ -1,14 +1,30 @@
 {
-  // Cloudflare Workers static-assets deploy of the Next.js static export.
+  // Cloudflare Worker: static Next.js export + /api/contact-request.
   // Build: `npm run build` (writes ./out). Deploy: `npx wrangler deploy`.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "vfvicera-portfolio",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-09-01",
   "assets": {
     "directory": "./out",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
   },
   "routes": [
     { "pattern": "vvicera.kx-lab.org", "custom_domain": true }
-  ]
+  ],
+  // Contact requests are emailed via Cloudflare Email Routing on kx-lab.org.
+  // The destination is NOT in this public repo: set it as a secret
+  //   npx wrangler secret put CONTACT_TO
+  // and verify that address under Email Routing > Destination addresses.
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    "CONTACT_FROM": "portfolio@kx-lab.org"
+  },
+  // 3 requests per minute per IP
+  "ratelimits": [
+    { "name": "RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } }
+  ],
+  "observability": { "enabled": true }
 }

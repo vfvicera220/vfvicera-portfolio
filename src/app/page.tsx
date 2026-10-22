@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import CatMascot from "./components/CatMascot";
 import SkillTree from "./components/SkillTree";
+import ContactRequest from "./components/ContactRequest";
 
 const ACCENT = "#F2A541";
 
@@ -213,7 +214,7 @@ export default function Home() {
             <a href="#skills">skills</a>
             <a href="#contact">contact</a>
           </div>
-          <a href="mailto:vfvicera220@gmail.com" className="font-mono" style={{ ...pill, minHeight: 44, padding: "0 16px", fontSize: 13 }}>
+          <a href="#contact" className="font-mono" style={{ ...pill, minHeight: 44, padding: "0 16px", fontSize: 13 }}>
             hire&nbsp;me&nbsp;→
           </a>
         </nav>
@@ -241,8 +242,8 @@ export default function Home() {
               <a href="#log" style={{ ...pill, minHeight: 52, padding: "0 24px", border: "none", background: ACCENT, color: "#111315", fontWeight: 600, fontSize: 16 }}>
                 Read the changelog
               </a>
-              <a href="https://github.com/vfvicera220" style={{ ...pill, minHeight: 52, padding: "0 24px", fontSize: 16 }}>
-                GitHub ↗
+              <a href="#contact" style={{ ...pill, minHeight: 52, padding: "0 24px", fontSize: 16 }}>
+                Request contact
               </a>
             </div>
           </div>
@@ -396,18 +397,11 @@ export default function Home() {
               Have something to build?
             </h2>
           </div>
-          <a
-            href="mailto:vfvicera220@gmail.com"
-            className="contact-mail"
-            style={{ fontSize: 44, fontWeight: 600, letterSpacing: "-0.02em", color: ACCENT, alignSelf: "flex-start", borderBottom: `2px solid ${ACCENT}`, paddingBottom: 4 }}
-          >
-            vfvicera220@gmail.com
-          </a>
-          <div className="font-mono" style={{ display: "flex", flexWrap: "wrap", gap: 12, fontSize: 14 }}>
-            <a href="https://github.com/vfvicera220" style={pill}>GitHub ↗</a>
-            <a href="https://www.linkedin.com/in/kvicera/" style={pill}>LinkedIn ↗</a>
-            <a href="https://www.upwork.com/freelancers/~01752e06ac87a9c281" style={pill}>Upwork ↗</a>
-          </div>
+          <p style={{ margin: 0, maxWidth: 620, fontSize: 18, color: "var(--fg-2)" }}>
+            My email and socials are shared on request. Tell me who you are and what it&apos;s about, and I&apos;ll reply with the
+            details you need.
+          </p>
+          <ContactRequest accent={ACCENT} />
           <footer
             className="font-mono"
             style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 16, paddingTop: 32, marginTop: 48, borderTop: "1px solid var(--line)", fontSize: 12, color: "var(--muted-2)" }}
