@@ -164,7 +164,7 @@ function Sprite({ pose, v, accent }: { pose: Pose; v: View; accent: string }) {
   );
 }
 
-export default function CatMascot({ accent }: { accent: string }) {
+export default function CatMascot({ accent, lines = LINES }: { accent: string; lines?: string[] }) {
   const [v, setV] = useState<View>({ x: -200, y: -200, hidden: true, flip: 1, rf: -1, pf: 0, pose: "stand", bubble: null });
   const reduced = useRef(false);
 
@@ -187,7 +187,7 @@ export default function CatMascot({ accent }: { accent: string }) {
     };
     const say = (chance: number) => {
       s.talk = Math.random() < chance;
-      if (s.talk) s.li = (s.li + 1) % LINES.length;
+      if (s.talk) s.li = (s.li + 1) % lines.length;
     };
     const pause = (now: number, restChance: number) => {
       s.mode = "pause";
@@ -297,7 +297,7 @@ export default function CatMascot({ accent }: { accent: string }) {
       if (moving && Math.abs(dir) > 0.5) s.flip = dir < 0 ? -1 : 1;
       const rf = airborne ? 1 : walking ? Math.floor(now / 80) % 4 : -1 - (Math.floor(now / 550) % 2);
       const talkPose = pose === "stand" || pose === "sit" || pose === "front";
-      const bubble = s.mode === "pause" && s.talk && talkPose ? LINES[Math.max(0, s.li)] : null;
+      const bubble = s.mode === "pause" && s.talk && talkPose ? lines[Math.max(0, s.li)] : null;
       const next: View = { x: Math.round(s.p.x), y: Math.round(s.p.y), hidden: s.hidden, flip: s.flip, rf, pf, pose, bubble };
       const key = JSON.stringify(next);
       if (key !== s.last) {
@@ -323,7 +323,7 @@ export default function CatMascot({ accent }: { accent: string }) {
       window.clearTimeout(st);
       window.removeEventListener("scroll", onScroll, { capture: true });
     };
-  }, []);
+  }, [lines]);
 
   const run = v.rf >= 0;
   const bounceY = v.pose !== "stand" ? 0 : run ? (v.rf % 2 === 1 ? -4 : 0) : v.rf === -2 ? -3 : 0;
