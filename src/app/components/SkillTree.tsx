@@ -58,7 +58,7 @@ const BRANCHES: Branch[] = [
         { id: "pg", name: "PostgreSQL", used: ["twist", "lexi"], kids: [{ id: "supabase", name: "Supabase", used: ["lexi"] }] },
       ],
     },
-    { id: "node", name: "Node.js", used: ["bb"] }],
+    { id: "node", name: "Node.js", used: ["bb"], kids: [{ id: "turso", name: "Turso", used: ["bb"] }] }],
   },
   {
     id: "devops",
@@ -110,6 +110,7 @@ const ALIASES: Record<string, string[]> = {
   pg: ["postgres", "sql", "database", "db"],
   supabase: ["postgres", "database", "db"],
   node: ["nodejs", "javascript", "js"],
+  turso: ["sqlite", "libsql", "database", "db", "edge"],
   docker: ["containers"],
   gha: ["ci", "cicd", "github"],
   jenkins: ["ci", "cicd"],

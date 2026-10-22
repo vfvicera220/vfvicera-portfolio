@@ -32,7 +32,7 @@ const RELEASES: Release[] = [
       { label: "App Store", href: "https://apps.apple.com/us/app/brain-battle-sat-act-prep/id6748758338" },
       { label: "Google Play", href: "https://play.google.com/store/apps/details?id=com.brainbattle" },
     ],
-    stack: ["React Native", "Next.js", "Node.js", "Cloudflare"],
+    stack: ["React Native", "Next.js", "Node.js", "Turso", "Cloudflare"],
   },
   {
     version: "v3.0.0",
