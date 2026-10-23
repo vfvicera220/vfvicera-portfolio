@@ -5,6 +5,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import CatMascot from "./components/CatMascot";
 import SkillTree from "./components/SkillTree";
 import ContactRequest from "./components/ContactRequest";
+import AIPipeline from "./components/AIPipeline";
 
 const ACCENT = "#F2A541";
 
@@ -219,6 +220,7 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
             <a href="#log">changelog</a>
             <a href="#builds">builds</a>
             <a href="#skills">skills</a>
+            <a href="#ai">ai</a>
             {contact && <a href="#contact">contact</a>}
           </div>
           {contact ? (
@@ -246,8 +248,8 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
           </h1>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 48, alignItems: "flex-end", justifyContent: "space-between" }}>
             <p style={{ margin: 0, maxWidth: 620, fontSize: 22, lineHeight: 1.5, color: "var(--fg-2)" }}>
-              Full-stack software engineer with <strong style={{ color: "var(--fg)", fontWeight: 600 }}>6+ years</strong> of professional experience — specialized in
-              frontend, built on a solid backend foundation. I ship web and mobile apps end to end.
+              Full-stack software engineer with <strong style={{ color: "var(--fg)", fontWeight: 600 }}>6+ years</strong> of professional experience across
+              frontend, backend and mobile. I ship web and mobile apps end to end.
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#log" style={{ ...pill, minHeight: 52, padding: "0 24px", border: "none", background: ACCENT, color: "#111315", fontWeight: 600, fontSize: 16 }}>
@@ -266,7 +268,7 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
           >
             {[
               ["experience", "2019 → now"],
-              ["focus", "Frontend · Mobile"],
+              ["focus", "Full-stack"],
               ["current", "Brain Battle · Twist"],
               ["latest build", "Brain Battle"],
             ].map(([k, val]) => (
@@ -407,12 +409,28 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
         </div>
       </section>
 
+      {/* AI WORKFLOW */}
+      <section id="ai" className="sec-pad" style={{ padding: "96px 56px", borderTop: "1px solid var(--line)" }}>
+        <div style={{ ...container, display: "flex", flexDirection: "column", gap: 40 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: 24 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <span className="font-mono" style={eyebrow}>04 — .github/workflows/ship.yml</span>
+              <h2 className="big-h2" style={h2}>How I build with AI</h2>
+            </div>
+            <p style={{ margin: 0, maxWidth: 380, color: "var(--muted)", fontSize: 16 }}>
+              I own the plan and the bar for done. AI does the heavy lifting in between — and nothing ships until it passes my review.
+            </p>
+          </div>
+          <AIPipeline accent={ACCENT} />
+        </div>
+      </section>
+
       {/* CONTACT (hidden on the Upwork-safe /work page) */}
       {contact ? (
         <section id="contact" className="sec-pad" style={{ padding: "120px 56px 72px", borderTop: "1px solid var(--line)" }}>
           <div style={{ ...container, display: "flex", flexDirection: "column", gap: 48 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <span className="font-mono" style={eyebrow}>04 — open an issue</span>
+              <span className="font-mono" style={eyebrow}>05 — open an issue</span>
               <h2 className="big-h2" style={{ ...h2, fontSize: 88, lineHeight: 0.95, letterSpacing: "-0.04em", maxWidth: 900 }}>
                 Have something to build?
               </h2>
