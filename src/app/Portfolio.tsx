@@ -62,18 +62,20 @@ const RELEASES: Release[] = [
   },
 ];
 
-type App = { name: string; build: string; blurb: string; icon: string; links: { store: string; href: string }[] };
+// `soon` lists platforms that are announced but not released yet
+type App = { name: string; build: string; blurb: string; icon: string; links: { store: string; href: string }[]; soon?: string[] };
 
 const APPS: App[] = [
   {
     name: "Brain Battle",
-    build: "iOS · Android",
+    build: "iOS · Android · Web",
     blurb: "Gamified SAT and ACT prep with real-time battles",
     icon: "/apps/brainbattle.webp",
     links: [
       { store: "App Store", href: "https://apps.apple.com/us/app/brain-battle-sat-act-prep/id6748758338" },
       { store: "Google Play", href: "https://play.google.com/store/apps/details?id=com.brainbattle" },
     ],
+    soon: ["Web app"],
   },
   {
     name: "LexiQuest",
@@ -374,6 +376,12 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
                       <a key={l.href} href={l.href} style={{ fontSize: 13, color: ACCENT, padding: "6px 0" }}>
                         {l.store} ↗
                       </a>
+                    ))}
+                    {a.soon?.map((s) => (
+                      <span key={s} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--muted)", padding: "6px 0" }}>
+                        {s}
+                        <span style={{ fontSize: 10, padding: "2px 6px", border: `1px dashed ${ACCENT}`, color: ACCENT, letterSpacing: "0.04em" }}>coming soon</span>
+                      </span>
                     ))}
                   </div>
                 </div>
