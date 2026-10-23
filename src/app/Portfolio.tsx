@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import CatMascot from "./components/CatMascot";
-import SkillTree from "./components/SkillTree";
+import SkillLayers from "./components/SkillLayers";
 import ContactRequest from "./components/ContactRequest";
 import AIPipeline from "./components/AIPipeline";
 
@@ -393,19 +393,19 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
         </div>
       </section>
 
-      {/* SKILL TREE */}
+      {/* SKILL MAP */}
       <section id="skills" className="sec-pad" style={{ padding: "96px 56px", borderTop: "1px solid var(--line)" }}>
         <div style={{ ...container, display: "flex", flexDirection: "column", gap: 56 }}>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-end", gap: 24 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <span className="font-mono" style={eyebrow}>03 — skill-tree</span>
-              <h2 className="big-h2" style={h2}>Skill map</h2>
+              <span className="font-mono" style={eyebrow}>03 — skill-map</span>
+              <h2 className="big-h2" style={h2}>The stack, layer by layer</h2>
             </div>
             <p style={{ margin: 0, maxWidth: 380, color: "var(--muted)", fontSize: 16 }}>
-              Levels come from years of real use across my roles. Hover or tap a node to see where it was used.
+              Grouped by where each tool sits in a full-stack app. Search a skill, or pick a job to light up the stack I shipped there.
             </p>
           </div>
-          <SkillTree />
+          <SkillLayers />
         </div>
       </section>
 
