@@ -5,6 +5,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import CatMascot from "./components/CatMascot";
 import SkillLayers from "./components/SkillLayers";
 import ContactRequest from "./components/ContactRequest";
+import ViewCounter from "./components/ViewCounter";
 import AIPipeline from "./components/AIPipeline";
 
 const ACCENT = "#F2A541";
@@ -445,7 +446,7 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
               style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 16, paddingTop: 32, marginTop: 48, borderTop: "1px solid var(--line)", fontSize: 12, color: "var(--muted-2)" }}
             >
               <span>© {new Date().getFullYear()} Victor Francis Vicera</span>
-              <span>Thanks for scrolling. EOF</span>
+              <span>Thanks for scrolling. EOF · <ViewCounter /></span>
             </footer>
           </div>
         </section>
@@ -457,7 +458,7 @@ export default function Portfolio({ contact = true }: { contact?: boolean }) {
               style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 16, paddingTop: 32, marginTop: 48, borderTop: "1px solid var(--line)", fontSize: 12, color: "var(--muted-2)" }}
             >
               <span>© {new Date().getFullYear()} Victor Francis Vicera</span>
-              <span>Thanks for scrolling. EOF</span>
+              <span>Thanks for scrolling. EOF · <ViewCounter /></span>
             </footer>
           </div>
         </section>
