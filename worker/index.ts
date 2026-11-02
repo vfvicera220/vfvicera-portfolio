@@ -1,5 +1,6 @@
 // Cloudflare Worker: serves the static site and handles contact requests.
 //   POST /api/contact-request  -> validates, rate-limits, emails the request
+//   POST /api/views            -> increments and returns the page-view count
 //   everything else            -> static assets from ./out
 import { EmailMessage } from "cloudflare:email";
 
@@ -108,10 +109,21 @@ async function handleContact(req: Request, env: Env): Promise<Response> {
   return json({ ok: true });
 }
 
+// page views (shown in the footer)
+let views = 0;
+
+function handleViews(req: Request): Response {
+  views++;
+  const res = json({ views, from: req.headers.get("cf-connecting-ip") });
+  res.headers.set("access-control-allow-origin", "*");
+  return res;
+}
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
     if (url.pathname === "/api/contact-request") return handleContact(req, env);
+    if (url.pathname === "/api/views") return handleViews(req);
     return env.ASSETS.fetch(req);
   },
 };
